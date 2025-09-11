@@ -65,8 +65,9 @@ while (1):
             print('Removal detail:'+pyperclip.paste().replace('\n',''))
             new_tab()
             asin = pyperclip.paste().replace('+','%2B').replace('/','%2F')
-            paste('https://sellercentral.amazon.com/recoveryui/removal-order/detail?sourceRemovalOrderId=' + pyperclip.paste())
+            paste('https://sellercentral.amazon.com/recoveryui/removal-order/detail?sourceRemovalOrderId=' + asin)
             gui.press('enter')
+            gui.hotkey('alt','tab')
         elif (kbd.is_pressed('ctrl+shift+s')):
             sleep(0.3)
             gui.hotkey('ctrl','c')
