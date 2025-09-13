@@ -29,9 +29,7 @@ def new_tab():
     mouse = gui.position()
     gui.click(x,y)
     gui.moveTo(mouse)
-    gui.keyDown('ctrl')
-    gui.press('t')
-    gui.keyUp('ctrl')
+    gui.hotkey('ctrl','t')
     gui.press('tab',3)
 
 # Use paste() to store accelerate input speed.
