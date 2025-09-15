@@ -2,3 +2,4 @@ sample.xlsx
 .DS_Store
 order.txt
 img
+__pycache__

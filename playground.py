@@ -173,13 +173,14 @@ def email_user():
             except:
                 print('')
     
-    
-while (kbd.is_pressed('ctrl+shift+s')!=1):
-    sleep(0.1)
-sleep(1)
+
 while(1):
-    email_user()
-'''
-while (1):
-        get_user_name()
-'''
+    if (kbd.is_pressed('ctrl+shift+d')):
+        sleep(1)
+        while(1):
+            email_user()
+    elif (kbd.is_pressed('ctrl+shift+s')):
+        sleep(1)
+        while (1):
+            get_user_name()
+    sleep(0.1)

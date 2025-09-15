@@ -12,7 +12,7 @@ gui.keyDown('ctrl')
 gui.press('f')
 gui.keyUp('ctrl')
 '''
-logocord = gui.locateOnScreen('img/ziniaologo.png')
+logocord = gui.locateOnScreen('img/ziniaologo.png',confidence=0.900)
 x, y = gui.center(logocord)
 email=[
 'Subject: OUTOHOME Order Confirmation & Support Commitment\n\n\
