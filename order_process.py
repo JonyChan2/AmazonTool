@@ -9,7 +9,7 @@ purchaseDate = []
 orderNumber = []
 
 def order_download():
-    logocord = gui.locateOnScreen('img/ziniaologo.png')
+    logocord = gui.locateOnScreen('img/ziniaologo.png',confidence=0.900)
     x, y = gui.center(logocord)
     gui.click(x,y)
     gui.hotkey('ctrl','t')
