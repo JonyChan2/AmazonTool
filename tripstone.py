@@ -12,7 +12,7 @@ gui.keyDown('ctrl')
 gui.press('f')
 gui.keyUp('ctrl')
 '''
-logocord = gui.locateOnScreen('img/ziniaologo.png')
+logocord = gui.locateOnScreen('img/ziniaologo.png',confidence=0.900)
 x, y = gui.center(logocord)
 email=[
 'Subject: OUTOHOME Order Confirmation & Support Commitment\n\n\
@@ -29,9 +29,7 @@ def new_tab():
     mouse = gui.position()
     gui.click(x,y)
     gui.moveTo(mouse)
-    gui.keyDown('ctrl')
-    gui.press('t')
-    gui.keyUp('ctrl')
+    gui.hotkey('ctrl','t')
     gui.press('tab',3)
 
 # Use paste() to store accelerate input speed.
@@ -65,8 +63,9 @@ while (1):
             print('Removal detail:'+pyperclip.paste().replace('\n',''))
             new_tab()
             asin = pyperclip.paste().replace('+','%2B').replace('/','%2F')
-            paste('https://sellercentral.amazon.com/recoveryui/removal-order/detail?sourceRemovalOrderId=' + pyperclip.paste())
+            paste('https://sellercentral.amazon.com/recoveryui/removal-order/detail?sourceRemovalOrderId=' + asin)
             gui.press('enter')
+            gui.hotkey('alt','tab')
         elif (kbd.is_pressed('ctrl+shift+s')):
             sleep(0.3)
             gui.hotkey('ctrl','c')

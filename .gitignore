@@ -1,2 +1,6 @@
 sample.xlsx
 .DS_Store
+order.txt
+img
+__pycache__
+ask_comment
