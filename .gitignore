@@ -4,3 +4,4 @@ order.txt
 img
 __pycache__
 ask_comment
+*.json
