@@ -62,8 +62,18 @@ def get_user_name():
                     try:
                         gui.locateOnScreen('img/refund.png',confidence=0.800)
                         print('Refund found, skiping...')
-                        return
+                        gui.hotkey('alt','tab')
+                        gui.press('enter')
+                        return 1
                     except:
+                        for i in range(0,3):
+                            try:
+                                gui.locateOnScreen('img/exchange.png',confidence=0.800)
+                                print('Item replacement found, skiping...')
+                                return
+                            except:
+                                print('replacement not found,'+str(i)+'/3')
+                                continue
                         try:
                             gui.locateOnScreen('img/no_refund.png',confidence=0.800)
                             break
@@ -77,7 +87,7 @@ def get_user_name():
                         continue
                 old_clip = pyperclip.paste().replace('\t','').replace('\n','')
                 gui.moveTo(buyer.x+30,buyer.y)
-                gui.dragTo(buyer.x+150,buyer.y,0.3)
+                gui.dragTo(buyer.x+170,buyer.y,0.3)
                 pyperclip.copy('')
                 gui.hotkey('ctrl','c')
                 break
@@ -132,7 +142,7 @@ def email_user():
                     name_end = gui.locateOnScreen('img/name_end.png',confidence=0.900)
                     print('found name_end')
                     gui.moveTo(name_start.left+name_start.width,name_start.top+name_start.height/2)
-                    gui.dragTo(name_end.left,name_end.top+name_end.height/2,0.5)
+                    gui.dragTo(name_end.left+10,name_end.top+name_end.height/2,0.5)
                     gui.hotkey('ctrl','c')
                     name = pyperclip.paste()
                     break
