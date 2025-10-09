@@ -59,13 +59,44 @@ def date_format():
         pyperclip.copy(pyperclip.paste()[0:10].replace('-','/'))
         gui.hotkey('ctrl','v')
         gui.press('enter')
-
-
+'''
 while 1:
     if kbd.is_pressed('ctrl+shift+s'):
         break
     sleep(0.1)
 sleep(1)
-#date_format()
+'''
 while 1:
-    check()
+    while 1:
+        try:
+            gui.click(gui.locateOnScreen('img/ziniaologo.png',confidence=0.900))
+            break
+        except:
+            continue
+    gui.hotkey('ctrl','t')
+    pyperclip.copy('https://sellercentral.amazon.com/reportcentral/CUSTOMER_RETURNS/1')
+    gui.press('tab',3)
+    gui.hotkey('ctrl','v')
+    gui.press('enter')
+
+    while 1:
+        sleep(1)
+        try:
+            gui.click(gui.locateOnScreen('img/lastday.png',confidence=0.990))
+            gui.press('down',5)
+            gui.press('enter')
+            print('Choose the period, then click ENTER.')
+            break
+        except:
+            continue
+
+    while 1:
+        if kbd.is_pressed('enter')!=1:
+            continue
+        try:
+            gui.click(gui.locateOnScreen('img/txt_download.png',confidence=0.900))
+            break
+        except:
+            continue
+
+    break
