@@ -18,7 +18,10 @@ def check():
             break
         except:
             try:
-                gui.moveTo(gui.locateOnScreen('img/order_await.png',confidence=0.900))
+                gui.moveTo(gui.locateOnScreen('img/order_canceled.png',confidence=0.900))
+                gui.hotkey('alt','tab')
+                gui.press('tab')
+                gui.write('canceled')
                 gui.press('enter')
                 return
             except:
@@ -33,7 +36,7 @@ def check():
             gui.locateOnScreen('img/refund.png',confidence=0.900)
             gui.hotkey('ctrl','w')
             gui.hotkey('alt','tab')
-            gui.press('tab',6)
+            gui.press('tab',1)
             gui.write('refunded')
             break
         except:
@@ -41,17 +44,28 @@ def check():
                 gui.locateOnScreen('img/no_refund.png',confidence=0.900)
                 gui.hotkey('ctrl','w')
                 gui.hotkey('alt','tab')
-                gui.press('tab',6)
+                gui.press('tab',1)
                 gui.write('no_refund')
                 break
             except:
                 continue
     gui.press('enter')
 
+def date_format():
+    while 1:
+        gui.hotkey('ctrl','c')
+        if pyperclip.paste()=='':
+            break
+        pyperclip.copy(pyperclip.paste()[0:10].replace('-','/'))
+        gui.hotkey('ctrl','v')
+        gui.press('enter')
+
+
 while 1:
     if kbd.is_pressed('ctrl+shift+s'):
         break
     sleep(0.1)
 sleep(1)
+#date_format()
 while 1:
     check()

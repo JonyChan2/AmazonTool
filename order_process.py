@@ -25,7 +25,7 @@ def order_download():
         except:
             print('not found, retrying...')
             sleep(1)
-    gui.press('down')
+    gui.press('down',2,0.5) #Download orders in last 7 days
     gui.press('enter')
     gui.click(gui.center(gui.locateOnScreen('img/ask_download.png')))
     gui.keyDown('shift')

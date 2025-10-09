@@ -53,8 +53,8 @@ def get_user_name():
     #等待页面加载
     while (1):
             try:
-                gui.locateOnScreen('img/order_finished.png',confidence=0.900)
-                gui.moveTo(1800,540)
+                gui.moveTo(gui.locateOnScreen('img/order_finished.png',confidence=0.900))
+                sleep(0.5)
                 gui.keyDown('shift')
                 gui.scroll(-400)
                 gui.keyUp('shift')
@@ -68,9 +68,15 @@ def get_user_name():
                     except:
                         for i in range(0,3):
                             try:
+
                                 gui.locateOnScreen('img/exchange.png',confidence=0.800)
                                 print('Item replacement found, skiping...')
-                                return
+                                gui.hotkey('alt','tab')
+                                gui.press('tab',4)
+                                pyperclip.copy('换货')
+                                gui.hotkey('ctrl','v')
+                                gui.press('enter')
+                                return 1
                             except:
                                 print('replacement not found,'+str(i)+'/3')
                                 continue
@@ -117,6 +123,37 @@ def email_user():
     gui.hotkey('ctrl','c')
     order_number = pyperclip.paste().replace('\t','').replace('\n','').replace('\r','')
     gui.click(gui.locateOnScreen('img/ziniaologo.png',confidence=0.900))
+
+    #See if contacted customer previously
+    gui.hotkey('ctrl','t')
+    gui.press('tab',3)
+    pyperclip.copy('https://sellercentral.amazon.com/messaging/inbox?&fi=search&ss='+order_number)
+    gui.hotkey('ctrl','v')
+    gui.press('enter')
+    while 1:
+        try:
+            gui.click(gui.locateOnScreen('img/fold_message.png',confidence=0.900))
+            break
+        except:
+            continue
+    while 1:
+        try:
+            gui.locateOnScreen('img/message_sent.png',confidence=0.900)
+            gui.hotkey('ctrl','w')
+            gui.hotkey('alt','tab')
+            gui.press('tab',5)
+            pyperclip.copy('已发送')
+            gui.hotkey('ctrl','v')
+            gui.press('enter')
+            return 1
+        except:
+            try:
+                gui.locateOnScreen('img/no_message.png',confidence=0.900)
+                gui.hotkey('ctrl','w')
+                break
+            except:
+                continue
+
     print('Order detail:'+order_number)
     gui.hotkey('ctrl','t')
     gui.press('tab',3)
@@ -129,6 +166,7 @@ def email_user():
     gui.hotkey('ctrl','v')
     gui.press('enter')
     gui.hotkey('ctrl','0')
+
     while (1):
         sleep(1)
         try:
@@ -144,7 +182,7 @@ def email_user():
                     gui.moveTo(name_start.left+name_start.width,name_start.top+name_start.height/2)
                     gui.dragTo(name_end.left+10,name_end.top+name_end.height/2,0.5)
                     gui.hotkey('ctrl','c')
-                    name = pyperclip.paste()
+                    name = pyperclip.paste().capitalize()
                     break
                 except:
                     continue
