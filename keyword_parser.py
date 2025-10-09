@@ -1,5 +1,5 @@
-import pyautogui as gui
-import keyboard as kbd
+#import pyautogui as gui
+#import keyboard as kbd
 import pyperclip
 from time import sleep
 import json
@@ -37,22 +37,27 @@ ws1.cell(1,5,'ABA占比')
 ws1.cell(1,6,'SPR')
 ws1.cell(1,7,'PPC竞价')
 
+#新建一个字典，将变量名和json里的变量名关联起来
+
 for i in range(row):
-    keyword = js_serial[i]["keywords"]
-    traffic_pct = js_serial[i]["trafficPercentage"]
-    ad_pct = js_serial[i]["adRatio"]
-    rank_pos = js_serial[i]["rankPosition"]["position"]
-    rank_pg = js_serial[i]["rankPosition"]["page"]
-    aba = js_serial[i]["monopolyClickRate"]
-    spr = js_serial[i]["titleDensityExact"]
-    bid = js_serial[i]["bid"]
-    ws1.cell(i+2,1,keyword)
-    ws1.cell(i+2,2,traffic_pct).number_format = '0.00%'
-    ws1.cell(i+2,3,ad_pct).number_format = '0.00%'
-    ws1.cell(i+2,4,'{0}/{1}'.format(rank_pos,rank_pg))
-    ws1.cell(i+2,5,aba).number_format = '0.00%'
-    ws1.cell(i+2,6,spr)
-    ws1.cell(i+2,7,bid).number_format = '$0.00'
+    try:
+        keyword = js_serial[i]["keywords"]
+        ws1.cell(i+2,1,keyword)
+        traffic_pct = js_serial[i]["trafficPercentage"]
+        ws1.cell(i+2,2,traffic_pct).number_format = '0.00%'
+        ad_pct = js_serial[i]["adRatio"]
+        ws1.cell(i+2,3,ad_pct).number_format = '0.00%'
+        rank_pos = js_serial[i]["rankPosition"]["position"]
+        rank_pg = js_serial[i]["rankPosition"]["page"]
+        ws1.cell(i+2,4,'{0}/{1}'.format(rank_pos,rank_pg))
+        aba = js_serial[i]["monopolyClickRate"]
+        ws1.cell(i+2,5,aba).number_format = '0.00%'
+        spr = js_serial[i]["titleDensityExact"]
+        ws1.cell(i+2,6,spr)
+        bid = js_serial[i]["bid"]
+        ws1.cell(i+2,7,bid).number_format = '$0.00'
+    except:
+        continue
 #print(js_serial['list'])
 
 wb.save(excelfile)
