@@ -55,6 +55,22 @@ def get_user_name():
             try:
                 gui.moveTo(gui.locateOnScreen('img/order_finished.png',confidence=0.900))
                 sleep(0.5)
+                while 1:
+                    try:
+                        date = gui.locateOnScreen('img/deliverdate.png',confidence=0.800)
+                        gui.moveTo(date.left+date.width,date.top+date.height)
+                        gui.dragTo(date.left+date.width+230,date.top+date.height,0.2)
+                        gui.hotkey('ctrl','c')
+                        gui.hotkey('alt','tab')
+                        gui.press('left')
+                        date = pyperclip.paste().replace('\n','').replace('\t','')
+                        pyperclip.copy(date[0:4]+'/'+date[5:7]+'/'+date[8:10])
+                        gui.hotkey('ctrl','v')
+                        gui.press('right')
+                        gui.hotkey('alt','tab')
+                        break
+                    except:
+                        continue
                 gui.keyDown('shift')
                 gui.scroll(-400)
                 gui.keyUp('shift')
@@ -206,15 +222,21 @@ def email_user():
                         try:
                             lang = gui.locateOnScreen('img/lang_sp.png',confidence=0.900)
                             print('Spanish')
+                            gui.click(lang.left,lang.top+100)
+                            pyperclip.copy(sp_mail[0]+name+sp_mail[1])
+                            gui.hotkey('ctrl','v')
                             break
                         except:
                             continue
-            gui.move(0,200)
+            gui.moveTo(lang.left,lang.top)
             sleep(1)
-            gui.scroll(-1200)
+            gui.scroll(-1000)
+            gui.scroll(-1000)
+            sleep(0.1)
             while(1):
                 try:
-                    gui.click(gui.locateOnScreen('img/send.png',confidence=0.900))
+                    send = gui.locateOnScreen('img/send.png',confidence=0.900)
+                    gui.click(send.left+100,send.top+30)
                     print('Ready to send, press \"ctrl+c\" to exit.')
                     break
                 except:

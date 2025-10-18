@@ -1,7 +1,8 @@
 sample.xlsx
 .DS_Store
-order.txt
+*.txt
 img
 __pycache__
 ask_comment
 *.json
+*.xlsx
