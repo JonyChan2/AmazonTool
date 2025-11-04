@@ -36,6 +36,7 @@ ws1.cell(1,4,'排名位置/页数')
 ws1.cell(1,5,'ABA占比')
 ws1.cell(1,6,'SPR')
 ws1.cell(1,7,'PPC竞价')
+ws1.cell(1,8,'转化率')
 
 #新建一个字典，将变量名和json里的变量名关联起来
 
@@ -56,6 +57,8 @@ for i in range(row):
         ws1.cell(i+2,6,spr)
         bid = js_serial[i]["bid"]
         ws1.cell(i+2,7,bid).number_format = '$0.00'
+        transfer = js_serial[i]['purchases'] / js_serial[i]['searches']
+        ws1.cell(i+2,8,transfer).number_format = '0.00%'
     except:
         continue
 #print(js_serial['list'])

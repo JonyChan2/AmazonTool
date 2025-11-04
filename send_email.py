@@ -64,7 +64,11 @@ def get_user_name():
                         gui.hotkey('alt','tab')
                         gui.press('left')
                         date = pyperclip.paste().replace('\n','').replace('\t','')
-                        pyperclip.copy(date[0:4]+'/'+date[5:7]+'/'+date[8:10])
+                        year = date[0:4]
+                        month = date[5:].split('月')[0]
+                        day = date[5:].split('月')[1].split('日')[0]
+                        print(month)
+                        pyperclip.copy(year+'/'+month+'/'+day)
                         gui.hotkey('ctrl','v')
                         gui.press('right')
                         gui.hotkey('alt','tab')
@@ -158,7 +162,7 @@ def email_user():
             gui.hotkey('ctrl','w')
             gui.hotkey('alt','tab')
             gui.press('tab',5)
-            pyperclip.copy('已发送')
+            pyperclip.copy('曾联系')
             gui.hotkey('ctrl','v')
             gui.press('enter')
             return 1
@@ -206,7 +210,7 @@ def email_user():
                 try:
                     lang = gui.locateOnScreen('img/lang_en.png',confidence=0.900)
                     print('English')
-                    gui.click(lang.left,lang.top+100)
+                    gui.click(lang.left,lang.top+150)
                     pyperclip.copy(en_mail[0]+name+en_mail[1])
                     gui.hotkey('ctrl','v')
                     break
@@ -214,7 +218,7 @@ def email_user():
                     try:
                         lang = gui.locateOnScreen('img/lang_fr.png',confidence=0.900)
                         print('French')
-                        gui.click(lang.left,lang.top+100)
+                        gui.click(lang.left,lang.top+150)
                         pyperclip.copy(fr_mail[0]+name+fr_mail[1])
                         gui.hotkey('ctrl','v')
                         break
@@ -222,7 +226,7 @@ def email_user():
                         try:
                             lang = gui.locateOnScreen('img/lang_sp.png',confidence=0.900)
                             print('Spanish')
-                            gui.click(lang.left,lang.top+100)
+                            gui.click(lang.left,lang.top+150)
                             pyperclip.copy(sp_mail[0]+name+sp_mail[1])
                             gui.hotkey('ctrl','v')
                             break
@@ -249,6 +253,18 @@ def email_user():
                 except:
                     continue
             '''
+            while 1:
+                if kbd.is_pressed('enter') == 1:
+                    sleep(0.5)
+                    try:
+                        send = gui.locateOnScreen('img/send_final.png',confidence=0.900)
+                        gui.click(send.left-100,send.top+100)
+                        break
+                    except:
+                        continue
+                if kbd.is_pressed('ctrl+c') == 1:
+                    sleep(0.5)
+                    return 0
             while(1):
                 try:
                     gui.locateOnScreen('img/sent_status.png',confidence=0.900)
@@ -292,4 +308,6 @@ while(1):
             if get_user_name()==0:
                 print('ctrl+shift+s: collect user name\nctrl+shift+d: send user email\nctrl+c: exit')
                 break
+    elif (kbd.is_pressed('ctrl+c')):
+        exit()
     sleep(0.1)
